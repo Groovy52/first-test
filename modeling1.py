@@ -59,3 +59,17 @@ fold_list = [DIP_path,data_path,lbl_path,
              json_path_ver1, json_path_ver2]
 
 mkfolder(fold_list)
+
+# remove letter in image
+
+def remoce_wr(ori_path, save_path):
+    original = cv2.imread(ori_path, cv2.IMREAD_COLOR)
+    kernal = np.ones((11,11),np.uint8)
+    # 글씨 영역 선택(임의)
+    ori_opened = cv2.morphologyEx(original[1100:1200,1300:1600,:], cv2.MORPH_OPEN, kernel) #글씨 영역 선택 
+    # morphological 연산 중 opening 이용 
+    original[1100:1200,1300:1600,:] = ori_opened 
+    # 새로운 폴더에 글씨 제거한 이미지 저장 
+    cv2.imwrite(save_path+'/remove_lt.jpg', original) 
+    
+    새로 추가함 ----->
